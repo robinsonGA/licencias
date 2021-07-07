@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap");
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #a5aaad;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #3ea175;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a5aaad;
+}
+
+/*
+etsilos generales
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body{
+  box-sizing: border-box;
+  font-family: 'Amatic' sans-serif;
+}
+texto-primario-p{
+  color: #a5aaad;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+negritas{
+  font-weight: 700;
+}
+texto-titulo{
+  color: #2e4a66;
+}
+texto-azul-calor{
+  color:#469cac;
+}
+texto-rojo{
+  color: #cc3d38;
+}
+texto-amarrillo{
+  color:#a98921 ;
+}
+texto-verde{
+  color: #3b9668;
+}
+.contenedor{
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 0.8fr 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 3fr;
+
+  grid-template-areas: 
+  "barra-lateral nav nav nav"
+  "barra-lateral principal principal principal"
+  ;
+}
+@media only screen and (max-width:978px){
+  .contenedor{
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas: 
+    "nav"
+    "principal";
+  }
+}
