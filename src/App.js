@@ -1,26 +1,33 @@
 import React, { useState } from "react";
 import BarraDeNavegacion from "./components/barraDeNavegacion/BarraDeNavegacion";
 import BarraLateral from "./components/barraLaterral/BarraLateral";
-import { BrowserRouter,Route, Switch  } from 'react-router-dom';
-import Principal from "./components/principal/Principal";
-import Formulario_1 from "./components/formulario/Formulario_1";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Clientes from "./components/formulario/Clientes";
+import Licencias from "./components/formulario/Licencias";
+import Login from './components/login/Login';
 function App() {
 
   const [abrirBarraLateral, setabrirBarraLateral] = useState();
+  const [tituFormulario, setTituloFormulario] = useState('');
 
   const barraLateral = () => {
     setabrirBarraLateral(!abrirBarraLateral);
   }
+
   return (
     <BrowserRouter>
-      <div className="contenedor">
-        <BarraDeNavegacion abrirBarraLateral={abrirBarraLateral} barraLateral={barraLateral}></BarraDeNavegacion>
-        <Switch>
-          <Route path="/" exact={true} component={Principal}></Route>
-         <Route path="/agregar" component={Formulario_1}></Route> 
-        </Switch>
-        <BarraLateral abrirBarraLateral={abrirBarraLateral} barraLateral={barraLateral}></BarraLateral>
-      </div>
+      <Switch>
+        <div className="contenedor">
+          <BarraDeNavegacion abrirBarraLateral={abrirBarraLateral} barraLateral={barraLateral} tituFormulario={tituFormulario}></BarraDeNavegacion>
+          <Route path="/Agregar/Cliente">
+            <Clientes setTituloFormulario={setTituloFormulario}></Clientes>
+          </Route>
+          <Route path="/Agregar/Licencias">
+            <Licencias setTituloFormulario={setTituloFormulario}></Licencias>
+          </Route>
+          <BarraLateral abrirBarraLateral={abrirBarraLateral} barraLateral={barraLateral}></BarraLateral>
+        </div>
+      </Switch>
     </BrowserRouter>
 
   );

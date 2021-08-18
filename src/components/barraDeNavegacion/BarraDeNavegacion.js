@@ -1,31 +1,27 @@
-import './barraDeNavegacion.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch, faClock } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-const BarraDeNavegacion = ({ abrirBarraLateral, barraLateral }) => {
+const BarraDeNavegacion = ({ barraLateral,tituFormulario }) => {
     return (
-
-        <nav className="barra-navegacion">
-            <div className="barra-navegacion-icono" onClick={() => barraLateral()}>
+        <BarraNavegacion>
+            <BarraNavegacionIcon onClick={() => barraLateral()}>
                 <FontAwesomeIcon icon={faBars} />
-            </div>
-            <div className="barra-navegacion__izquierda">
-                <a href="#"> opcion 1</a>
-                <a href="#"> opcion 2</a>
-                <a className="enlace-activo" href="#">opcion 3</a>
-            </div>
-            <div className="barra-navegacion__derecha">
-                <a href="#">
+            </BarraNavegacionIcon>
+            <BarraDeNavegacionIzquierdo>
+               <p>{tituFormulario}</p>
+            </BarraDeNavegacionIzquierdo>
+            <BarraDeNavegacionDerecha>
+                {/* <a href="!#">
                     <FontAwesomeIcon icon={faSearch} />
                 </a>
-                <a href="#">
+                <a href="!#">
                     <FontAwesomeIcon icon={faClock} />
                 </a>
-                <a href="#">
+                <a href="!#">
                     <img width="30" src="http://placekitten.com/200/300" alt="avatar"></img>
-                </a>
-            </div>
-        </nav>);
+                </a> */}
+            </BarraDeNavegacionDerecha>
+        </BarraNavegacion>);
 }
 
 const BarraNavegacion = styled.nav`
@@ -44,14 +40,36 @@ const BarraNavegacionIcon = styled.div`
         font-size: 26px;
         color: #a5aaad;
       }
+      @media only screen and (max-width: 978px) {
+          display: inline;
+      }
 `;
-const BarraDeNavegacionIzquierdo= styled.div`
-    a {
+const BarraDeNavegacionIzquierdo = styled.div`
+    p {
         margin-right: 20px;
-        text-decoration: none;
-        color: #a5aaad;
+        color: #34495e;
         font-size: 15px;
         font-weight: 700;
     }
+    @media only screen and (max-width: 480px) {
+          display: none;
+      }
+`;
+const BarraDeNavegacionDerecha = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+        margin-left: 20px;
+        text-decoration: none;
+      }
+    a > svg {
+        color: #a5aaad;
+        font-size: 16px;
+        border-radius: 50px;
+        background: #ffffff;
+        box-shadow: 2px 2px 5px #d9d9d9, -2px -2px 5px #ffffff;
+        padding: 7px;
+      }
 `;
 export default BarraDeNavegacion;

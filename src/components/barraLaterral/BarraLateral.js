@@ -1,83 +1,56 @@
-import './Barralateral.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArchive, faBuilding, faCalendar, faFile, faHandshake, faHome, faQuestion, faSignOutAlt, faTimes, faUserSecret, faWrench, faBriefcase, faMoneyCheck, faPowerOff } from '@fortawesome/free-solid-svg-icons';
-import React, { useState, useEffect } from 'react';
+import {faHome, faTimes, faUserPlus, faMoneyCheck, faPowerOff, faTable, faEdit } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
 import Enlace from './Enlace';
+import styled, { css } from 'styled-components';
 const BarraLateral = ({ abrirBarraLateral, barraLateral }) => {
-    const [enlaces, setEnlaces] = useState(
+    const [enlaces] = useState(
         [
             {
                 id: 1,
                 icono: faHome,
                 exact: true,
                 texto: 'Inicio',
-                ruta: './'
+                ruta: '/'
             },
             {
                 id: 2,
-                icono: faUserSecret,
+                icono: faUserPlus,
                 exact: false,
-                texto: 'Agregar',
-                ruta: '/agregar'
+                texto: 'Agregar Clientes',
+                ruta: '/Agregar/Cliente'
             },
+
             {
                 id: 3,
-                icono: faBuilding,
+                icono: faEdit,
                 exact: false,
-                texto: 'menu 2',
-                ruta: 'jjj'
+                texto: 'Modificar Clientes',
+                ruta: '/Modifcar/Clientes'
             },
             {
                 id: 4,
-                icono: faWrench,
+                icono: faUserPlus,
                 exact: false,
-                texto: 'menu 3',
-                ruta: 'df'
+                texto: 'Agregar Licencias',
+                ruta: '/Agregar/Licencias'
             },
             {
                 id: 5,
-                icono: faArchive,
+                icono: faEdit,
                 exact: false,
-                texto: 'menu 4',
-                ruta: 'dfd'
+                texto: 'Modificar Licencias',
+                ruta: '/Modifcar/Licencias'
             },
             {
                 id: 6,
-                icono: faHandshake,
+                icono: faTable,
                 exact: false,
-                texto: 'menu 5',
-                ruta: 'dfd'
+                texto: 'Consultas',
+                ruta: '/Consulta'
             },
             {
                 id: 7,
-                icono: faQuestion,
-                exact: false,
-                texto: 'menu 6',
-                ruta: 'dfdf'
-            },
-            {
-                id: 8,
-                icono: faSignOutAlt,
-                exact: false,
-                texto: 'menu 7',
-                ruta: 'dff'
-            },
-            {
-                id: 9,
-                icono: faCalendar,
-                exact: false,
-                texto: 'menu 8',
-                ruta: 'fgfg'
-            },
-            {
-                id: 10,
-                icono: faFile,
-                exact: false,
-                texto: 'menu 9',
-                ruta: 'fgf'
-            },
-            {
-                id: 11,
                 icono: faMoneyCheck,
                 exact: false,
                 texto: 'menu 10',
@@ -85,46 +58,108 @@ const BarraLateral = ({ abrirBarraLateral, barraLateral }) => {
             }
         ]
     )
-    const [targetaSeleccionada, setTargetaSeleccionada] = useState(0);
+    const [targetaSeleccionada, setTargetaSeleccionada] = useState(1);
     const cambio = (id) => {
-        let hola = setTargetaSeleccionada(id);
-        console.log(hola);
+        setTargetaSeleccionada(id);
+        //console.log(hola)
     }
     return (
-        <div className={abrirBarraLateral ? "barra-lateral-sensible" : ""} id="barraLateral">
-            <div className="barra-lateral__titulo">
-                <div className="barra-lateral__img">
+        <NavegacionLateral abrirbarralateral={abrirBarraLateral} id="barraLateral">
+            <BarraLateralTitulo>
+                <BarraLateralImg>
                     <img src="http://placekitten.com/200/300" alt="logo" />
-                    <h1>titulo</h1>
-                </div>
+                    <h1>ArcaTec</h1>
+                </BarraLateralImg>
                 <FontAwesomeIcon id="barraLateralIcon" icon={faTimes} onClick={() => barraLateral()}></FontAwesomeIcon>
-            </div>
+            </BarraLateralTitulo>
             <div className="barra-lateral__menu">
                 {
                     enlaces.map((enlace) => {
-                        console.log(enlace.id);
                         return (
-                            <Enlace className={`barra-lateral__enlace ${targetaSeleccionada === enlace.id ? 'enlace-menu-activo' : ''}`}
+                            <Enlace activo={targetaSeleccionada === enlace.id}
                                 key={enlace.id}
                                 id={enlace.id}
                                 icono={enlace.icono}
                                 exacto={enlace.exact}
                                 texto={enlace.texto}
                                 ruta={enlace.ruta}
-                                onClick={()=>{cambio(enlace.id)}}
+                                onClick={() => { cambio(enlace.id) }}
                             ></Enlace>
                         );
 
                     })
                 }
-                <div className="barra-lateral__cerrar">
+                <BarraLateralCerrar>
                     <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
-                    <a>menu 11</a>
-                </div>
+                    <a href="#">Salir</a>
+                </BarraLateralCerrar>
             </div>
 
-        </div>
+        </NavegacionLateral>
     );
 }
-
+const NavegacionLateral = styled.div`
+    background: #2c3e50;
+    grid-area: barra-lateral;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+ ${props => props.abrirbarralateral === true && css`
+    display: inline !important;
+    z-index: 9999 !important;
+    left: 0 !important;
+    position: absolute;
+ `}
+ @media only screen and (max-width: 978px) {
+      display: none;
+  }
+`;
+const BarraLateralImg = styled.div`
+    display: flex;
+    align-items: center;
+    img {
+        margin-right:10px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: contain;
+    }
+`;
+const BarraLateralTitulo = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #f3f4f6;
+    margin-bottom: 30px;
+    h1 {
+        font-size: 18px;
+        display: inline;
+    }
+    
+    svg {
+        font-size: 18px;
+        display: none;
+    }
+@media only screen and (max-width: 978px) {
+    svg {
+        display: inline;
+  }
+}
+`;
+const BarraLateralCerrar = styled.div`
+    margin-top: 20px;
+    padding: 10px;
+    color: #e65061;
+    a {
+        text-decoration: none;
+        color: #e65061;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      svg {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+`;
 export default BarraLateral;
